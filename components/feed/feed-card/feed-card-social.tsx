@@ -6,7 +6,7 @@ import {
     FaRegBookmark,
     FaArrowUpFromBracket,
 } from "react-icons/fa6";
-import IconWithCount from "./feed-icon/icon-with-count";
+import IconWithCount from "../feed-icon/icon-with-count";
 
 const FeedCardSocial = () => {
     return (

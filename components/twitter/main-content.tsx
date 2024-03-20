@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import SideBar from "@/components/twitter/sidebar";
+import SideBar from "@/components/side-bar/sidebar";
 import { BsTwitterX } from "react-icons/bs";
 import TweetButton from "./tweet-button";
 import SearchAndSuggestions from "../serach-and-suggestions/search-and-suggestions";

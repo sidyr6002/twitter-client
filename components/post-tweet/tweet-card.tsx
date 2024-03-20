@@ -4,11 +4,18 @@ import UserAvatar from '@/components/twitter/user-avatar'
 import { Input } from '@/components/ui/input'
 import { FaRegImage, FaSquarePollHorizontal, FaFaceSmile, FaCalendarDays } from "react-icons/fa6";
 import { Button } from '@/components/ui/button';
+import { useQuery } from '@tanstack/react-query';
+import { getCurrentUser } from '@/actions/getUser';
 
 const TweetCard = () => {
+    const {data: currentUser} = useQuery({
+        queryKey: ["currentUser"],
+        queryFn: async () => await getCurrentUser(),
+    })
+
   return (
       <div className="hidden w-full sm:grid grid-cols-10 gap-2 text-white mt-3 p-1 ">
-          <UserAvatar />
+          <UserAvatar image={currentUser?.data?.getCurrentUser?.profilePicture ? currentUser.data.getCurrentUser.profilePicture : ""}/>
           <div className="col-span-9 text-white">
               <div className='pb-3'>
                   <Input

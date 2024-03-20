@@ -1,16 +1,23 @@
 "use client";
 import React from "react";
-import UserAvatar from "../twitter/user-avatar";
+import UserAvatar from "../../twitter/user-avatar";
 import FeedCardSocial from "./feed-card-social";
+import { useQuery } from "@tanstack/react-query";
+import { getCurrentUser } from "@/actions/getUser";
 
-const FeedCard = () => {
+interface FeedCardProps {
+    userImage: string | undefined;
+    userName: string | undefined;
+}
+
+const FeedCard = ({userImage, userName} : FeedCardProps) => {
     return (
-        <div className="w-full cursor-pointer grid grid-cols-10 gap-2 sm:gap-1 pt-3 p-1 border-t border-stone-600/50 hover:bg-stone-900/60 transition-all">
-            <UserAvatar />
+       <div className="cursor-pointer grid grid-cols-10 gap-2 sm:gap-1 pt-3 p-1 border-t border-stone-600/50 hover:bg-stone-900/60 transition-all">
+            <UserAvatar image={userImage}/>
             <div className="col-span-9 text-white">
                 <div className="flex items-center gap-1">
                     <span className="font-semibold tracking-tight">
-                        Monkey D Luffy
+                        {userName}
                     </span>
                     <span className="tracking-tighter text-gray-500/60">
                         @monkeydluffy
@@ -27,7 +34,8 @@ const FeedCard = () => {
                 </div>
                 <FeedCardSocial />
             </div>
-        </div>
+       </div>
+        
     );
 };
 

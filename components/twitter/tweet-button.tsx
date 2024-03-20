@@ -1,8 +1,18 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import UserAvatar from "./user-avatar";
+import { useQuery } from "@tanstack/react-query";
+import { getCurrentUser } from "@/actions/getUser";
 
 const TweetButton = () => {
+    const {data: currentUser } = useQuery({
+        queryKey: ["currentUser"],
+        queryFn: async () => await getCurrentUser(),
+    })
+
+    console.log("Current User", currentUser);
+
     return (
         <div className="hidden grow sm:flex flex-col mt-5 xl:w-full w-fit justify-between">
             <button className="bg-sky-600 hover:bg-sky-500 text-white h-11 w-11 xl:w-full rounded-full py-auto">
@@ -27,34 +37,12 @@ const TweetButton = () => {
 
             <div className="w-full flex hover:bg-slate-500/20 xl:py-2 xl:px-2 rounded-full">
                 <div className="xl:w-3/12 flex items-center justify-start">
-                    <Avatar>
-                        <AvatarImage
-                            src="https://avatars.pfptown.com/585/luffy-pfp-1651.png"
-                            className="w-full"
-                        />
-                        <AvatarFallback>
-                            <svg
-                                className="w-full fill-stone-900 text-white"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="1.5"
-                                    d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a9 9 0 0 0 5-1.5 4 4 0 0 0-4-3.5h-2a4 4 0 0 0-4 3.5 9 9 0 0 0 5 1.5Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                                />
-                            </svg>
-                        </AvatarFallback>
-                    </Avatar>
+                    <UserAvatar image={currentUser?.data?.getCurrentUser?.profilePicture ? currentUser.data.getCurrentUser.profilePicture : ""}/>
                 </div>
                 <div className="w-8/12 hidden xl:flex items-center">
                     <div className="text-white flex flex-col gap-[0.5px] overflow-hidden">
                         <span className="text-sm font-bold whitespace-nowrap">
-                            Monkey D Luffy
+                            {currentUser?.data?.getCurrentUser?.firstName + " " + currentUser?.data?.getCurrentUser?.lastName}
                         </span>
                         <span className="text-xs text-gray-500 tracking-wider">
                             @monkeydluffy
